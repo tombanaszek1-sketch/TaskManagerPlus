@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #07080a;
+  --surface: #0d0d0d;
+  --surface-elevated: #101111;
+  --surface-card: #121212;
+  --surface-hover: #17181a;
+  --hairline: #242728;
+  --hairline-soft: rgba(255, 255, 255, 0.08);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+  --ink: #f4f4f6;
+  --body: #cdcdcd;
+  --mute: #9c9c9d;
+  --ash: #6a6b6c;
+  --stone: #434345;
+  --primary: #ffffff;
+  --primary-pressed: #e8e8e8;
+  --on-primary: #000000;
+
+  --accent-blue: #57c1ff;
+  --accent-red: #ff6161;
+  --accent-green: #59d499;
+  --accent-yellow: #ffc533;
+  --accent-lime: #b8f35a;
+  --accent-neutral: #d3d3d4;
+
+  --res-cpu: var(--accent-blue);
+  --res-gpu: var(--accent-green);
+  --res-memory: var(--accent-yellow);
+  --res-disk: var(--accent-neutral);
+  --res-network: var(--accent-lime);
+  --danger: var(--accent-red);
+  --warning: var(--accent-yellow);
+  --ok: var(--accent-green);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --canvas: #f4f4f5;
+  --surface: #fafafa;
+  --surface-elevated: #efeff1;
+  --surface-card: #ffffff;
+  --surface-hover: #f0f0f2;
+  --hairline: #e1e1e5;
+  --hairline-soft: rgba(0, 0, 0, 0.06);
+  --hairline-strong: rgba(0, 0, 0, 0.14);
+  --ink: #111113;
+  --body: #2e2e33;
+  --mute: #616166;
+  --ash: #85858b;
+  --stone: #c9c9ce;
+  --primary: #111113;
+  --primary-pressed: #2a2a2e;
+  --on-primary: #ffffff;
+
+  --accent-blue: #0b7fc7;
+  --accent-red: #d23a3a;
+  --accent-green: #1c9460;
+  --accent-yellow: #a87800;
+  --accent-lime: #4f8a00;
+  --accent-neutral: #56575c;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-elevated: var(--surface-elevated);
+  --color-card: var(--surface-card);
+  --color-hover: var(--surface-hover);
+  --color-hairline: var(--hairline);
+  --color-hairline-soft: var(--hairline-soft);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-mute: var(--mute);
+  --color-ash: var(--ash);
+  --color-stone: var(--stone);
+  --color-primary: var(--primary);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-on-primary: var(--on-primary);
+  --color-cpu: var(--res-cpu);
+  --color-gpu: var(--res-gpu);
+  --color-memory: var(--res-memory);
+  --color-disk: var(--res-disk);
+  --color-network: var(--res-network);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-ok: var(--ok);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "Cascadia Mono", monospace;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 16px;
+
+  --text-caption-sm: 12px;
+  --text-caption-sm--line-height: 1.5;
+  --text-caption-md: 13px;
+  --text-caption-md--line-height: 1.4;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.6;
+  --text-heading-sm: 18px;
+  --text-heading-sm--line-height: 1.4;
+  --text-heading-lg: 22px;
+  --text-heading-lg--line-height: 1.15;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--canvas);
+  color: var(--body);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: "calt", "kern", "liga", "ss03";
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  user-select: none;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent-blue) 30%, transparent);
+}
+
+.selectable {
+  user-select: text;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Thin, quiet scrollbars that match the surfaces. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--stone) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* Performance mode: the window is software rendered, so nothing animates. */
+[data-performance] *,
+[data-performance] *::before,
+[data-performance] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

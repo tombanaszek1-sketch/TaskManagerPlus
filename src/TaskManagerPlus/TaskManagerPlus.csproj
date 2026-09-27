@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>TaskManagerPlus</RootNamespace>
+    <AssemblyName>TaskManagerPlus</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4191.47" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskManagerPlus.Core\TaskManagerPlus.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\app.ico" LogicalName="TaskManagerPlus.app.ico" />
+  </ItemGroup>
+
+  <!-- WinForms host only: drop the WPF control assembly the WebView2 package adds, it conflicts with WindowsBase. -->
+  <Target Name="ExcludeWebView2Wpf" AfterTargets="ResolvePackageAssets" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <Reference Remove="@(Reference)" Condition="'%(Filename)' == 'Microsoft.Web.WebView2.Wpf'" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Official PawnIO installer for CPU and mainboard sensors, fetched by build.ps1 with a pinned hash. -->
+  <ItemGroup Condition="Exists('..\..\artifacts\third-party\PawnIO_setup.exe')">
+    <EmbeddedResource Include="..\..\artifacts\third-party\PawnIO_setup.exe" LogicalName="thirdparty/PawnIO_setup.exe" />
+  </ItemGroup>
+
+  <!-- The web UI is built separately (ui/out) and embedded, so the published app is a single executable. -->
+  <ItemGroup Condition="Exists('..\..\ui\out')">
+    <EmbeddedResource Include="..\..\ui\out\**\*" LogicalName="ui/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+<Project Sdk="WixToolset.Sdk/5.0.2">
+
+  <PropertyGroup>
+    <OutputName>TaskManagerPlus-$(Version)-win-x64</OutputName>
+    <InstallerPlatform>x64</InstallerPlatform>
+    <!-- Folder that contains the published TaskManagerPlus.exe; build.ps1 passes it in. -->
+    <PublishDir Condition="'$(PublishDir)' == ''">..\artifacts\TaskManagerPlus\</PublishDir>
+    <!-- Folder with the pinned third-party installers fetched by build.ps1. -->
+    <ThirdPartyDir Condition="'$(ThirdPartyDir)' == ''">..\artifacts\third-party\</ThirdPartyDir>
+    <DefineConstants>Version=$(Version);PublishDir=$(PublishDir);ThirdPartyDir=$(ThirdPartyDir)</DefineConstants>
+    <SuppressIces>ICE61</SuppressIces>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WixToolset.UI.wixext" Version="5.0.2" />
+  </ItemGroup>
+
+</Project>

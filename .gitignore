@@ -1,0 +1,20 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+artifacts/
+
+# Node / Next.js
+node_modules/
+ui/.next/
+ui/out/
+ui/next-env.d.ts
+*.tsbuildinfo
+
+# Local
+.env
+.env.*
+*.log
